@@ -684,9 +684,20 @@
 </div>
 <script>
 
-const headAllMenuBtnOn = document.querySelector('.head_all_menu_Btn_on');
-const headAllMenuBtnOff = document.querySelector('.all_menu_tap_bar > a')
-const headAllMenuTap = document.querySelector('.head_all_menu_tap')
+const topComElems = document.querySelectorAll('.top_list > li')
+const topComPrv = document.querySelector('.top_inner > .btn_arrow_prev')
+const topComNxt = document.querySelector('.top_inner > .btn_arrow_next')
+let topComElemsLeng = topComElems.length;
+let curIndex = 0;
+const topComWidth = 1000;
+const topComSpeed = 300;
+let windowWidth = window.innerWidth;
+let curSlide
+const topListDot = document.querySelector('.top_inner >.list_dot')
+const topListDotElems = document.querySelectorAll('.top_inner >.list_dot > li > a')
+const dotMove = document.querySelector('.list_dot_move > a')
+var moveId;
+
 headAllMenuBtnOn.addEventListener('click', function () {
     headAllMenuTap.style.display = 'block';headAllMenuTap.style.maxHeight = '30em';
 })
@@ -734,6 +745,8 @@ function slideReady() {
 }
 // COM NXT
 topComNxt.addEventListener('click',function () {
+    clearInterval(moveId);
+    dotMove.classList.remove('on_stop')
     if (curIndex < topComElemsLeng -1){
         // 나가기
         topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
@@ -771,6 +784,8 @@ topComNxt.addEventListener('click',function () {
 })
 // COM PRV
 topComPrv.addEventListener('click',() =>{
+    clearInterval(moveId);
+    dotMove.classList.remove('on_stop')
     if (curIndex === 0) {
         topComElems[curIndex].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
         topComElems[topComElemsLeng - 1].style.display = 'none'
@@ -800,10 +815,7 @@ topComPrv.addEventListener('click',() =>{
     curSlide = topComElems[--curIndex];
 })
 // top 페이지네이션
-const topListDot = document.querySelector('.top_inner >.list_dot')
-const topListDotElems = document.querySelectorAll('.top_inner >.list_dot > li > a')
-const dotMove = document.querySelector('.list_dot_move > a')
-var moveId;
+
 topListDot.addEventListener('click',(e) =>{
     e.preventDefault();
     if (e.target.tagName !== 'A') return
@@ -825,6 +837,7 @@ topListDot.addEventListener('click',(e) =>{
             topListDotElems[i].setAttribute('index', i)
         }
         e.target.classList.add('on_show')
+        clearInterval(moveId);
     }
     let targetIndex = e.target.getAttribute('index');
     if (targetIndex) {
@@ -873,7 +886,7 @@ function autoWork() {
             curIndex = 0
         }
         curSlide = topComElems[curIndex];
-    }, 1500);
+    }, 500);
 }
 // topcom slide end
 
