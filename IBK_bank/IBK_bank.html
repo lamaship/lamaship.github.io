@@ -710,6 +710,8 @@ function headAllMenuBtnOffAnime() {
     }
 }
 
+// topcom slide start
+
 const topComElems = document.querySelectorAll('.top_list > li')
 const topComPrv = document.querySelector('.top_inner > .btn_arrow_prev')
 const topComNxt = document.querySelector('.top_inner > .btn_arrow_next')
@@ -719,31 +721,29 @@ const topComWidth = 1000;
 const topComSpeed = 300;
 let windowWidth = window.innerWidth;
 let curSlide
-for (let i = 0; i < topComElemsLeng; i++) {
-    topComElems[i].style.transition = topComSpeed + 'ms';
-}
-nxtReady();
-function nxtReady() {
+
+// silide ready
+slideReady();
+function slideReady() {
+    for (let i = 0; i < topComElemsLeng; i++) {
+        topComElems[i].style.transition = topComSpeed + 'ms';
+    }
     for (let i = 1; i < topComElemsLeng; i++) {
-        topComElems[i].style.transform = 'translate3d(' + (windowWidth / 2)  + 'px, 0px, 0px)';
-        topComElems[curIndex+1].style.transform = 'translate3d(' + (windowWidth / 2)  + 'px, 0px, 0px)';
+        topComElems[i].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
     }
 }
+// COM NXT
 topComNxt.addEventListener('click',function () {
     if (curIndex < topComElemsLeng -1){
         // 나가기
         topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
         // 들어오기
-        if (topComElems[curIndex+1]) {
-            topComElems[curIndex+1].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
-        }
+        topComElems[curIndex+1].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
         // 뒤로 보내기
-        if (topComElems[curIndex]) {
-            setTimeout(function () {
-                topComElems[curIndex-1].style.display = 'none';
-                topComElems[curIndex-1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
-            }, topComSpeed)
-        }
+        setTimeout(function () {
+            topComElems[curIndex-1].style.display = 'none';
+            topComElems[curIndex-1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
+        }, topComSpeed)
     }
     if (curIndex === topComElemsLeng - 1){ // 처음부터 시작
         topComElems[topComElemsLeng-1].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
@@ -763,14 +763,18 @@ topComNxt.addEventListener('click',function () {
         },20)
         curIndex = -1;
     }
+    for (let i = 0; i < topListDotElems.length; i++) {
+        topListDotElems[i].classList.remove('on_show')
+    }
+    topListDotElems[curIndex+1].classList.add('on_show')
     curSlide = topComElems[++curIndex];
 })
+// COM PRV
 topComPrv.addEventListener('click',() =>{
-    // console.log('뒤로가기');
     if (curIndex === 0) {
+        topComElems[curIndex].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
         topComElems[topComElemsLeng - 1].style.display = 'none'
         topComElems[topComElemsLeng - 1].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
-        topComElems[curIndex].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
         setTimeout(() => {
             topComElems[topComElemsLeng - 1].style.display = 'block'
         }, 20);
@@ -789,28 +793,89 @@ topComPrv.addEventListener('click',() =>{
             topComElems[curIndex+1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
         }, 40);
     }
+    for (let i = 0; i < topListDotElems.length; i++) {
+        topListDotElems[i].classList.remove('on_show')
+    }
+    topListDotElems[curIndex - 1].classList.add('on_show')
     curSlide = topComElems[--curIndex];
 })
-
 // top 페이지네이션
 const topListDot = document.querySelector('.top_inner >.list_dot')
 const topListDotElems = document.querySelectorAll('.top_inner >.list_dot > li > a')
+const dotMove = document.querySelector('.list_dot_move > a')
+var moveId;
 topListDot.addEventListener('click',(e) =>{
     e.preventDefault();
     if (e.target.tagName !== 'A') return
-    // on_show
+    // auto_move
+    if (e.target === dotMove) {
+        if (dotMove.className) {
+            e.target.classList.remove('on_stop')
+            clearInterval(moveId);
+        } else {
+            e.target.classList.add('on_stop')
+            autoWork();
+        }
+        return
+    }
+    if (e.target.className) return;
     if (!e.target.className){
         for (let i = 0; i < topListDotElems.length; i++){
-            console.log(topListDotElems[i]);
             topListDotElems[i].classList.remove('on_show')
+            topListDotElems[i].setAttribute('index', i)
         }
         e.target.classList.add('on_show')
     }
-    topComElems[curIndex - 1].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
-    topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
-    topComElems[curIndex + 1].style.transform = 'translate3d(' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+    let targetIndex = e.target.getAttribute('index');
+    if (targetIndex) {
+        for (let i = targetIndex; 0 <= i; i--) {
+            topComElems[i].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+            topComElems[i].style.display = 'block'
+        }
+        for (let i = targetIndex; i < topComElems.length; i++){
+            topComElems[i].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
+            topComElems[i].style.display = 'block'
+            topComElems[targetIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+        }
+    }
+    curIndex = Number(targetIndex);
+    curSlide = topComElems[curIndex];
 })
-
+// auot move
+autoWork();
+function autoWork() {
+    moveId = setInterval(() => {
+        if (curIndex < topComElemsLeng-1) {
+            for (let i = curIndex; 0 <= i; i--) {
+                topComElems[i].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+                topComElems[i].style.display = 'block'
+            }
+            for (let i = curIndex; i < topComElems.length; i++) {
+                topComElems[i].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
+                topComElems[i].style.display = 'block'
+                topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+            }
+            topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+            for (let i = 0; i < topListDotElems.length; i++) {
+                topListDotElems[i].classList.remove('on_show')
+            }
+            topListDotElems[curIndex].classList.add('on_show')
+            curIndex++;
+        } else if (curIndex == topComElemsLeng-1) {
+            for (let i = 1; i < topComElems.length ; i++){
+                topComElems[i].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+            }
+            topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+            for (let i = 0; i < topListDotElems.length; i++) {
+                topListDotElems[i].classList.remove('on_show')
+            }
+            topListDotElems[curIndex].classList.add('on_show')
+            curIndex = 0
+        }
+        curSlide = topComElems[curIndex];
+    }, 1500);
+}
+// topcom slide end
 
 
 
