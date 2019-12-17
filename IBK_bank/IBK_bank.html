@@ -449,7 +449,7 @@
                     <div class="bank_login"><a href="">뱅킹로그인</a></div>
                     <div class="public_crypt"><a href="">공인인증센터</a></div>
                     <ul class="list_dot">
-                        <li><a href=""></a></li>
+                        <li><a href="" class="on_show"></a></li>
                         <li><a href=""></a></li>
                         <li><a href=""></a></li>
                         <li class="list_dot_move"><a href="" class="on_stop"></a></li>
@@ -481,38 +481,38 @@
                             <li class="b_big_list_third"><a href=""><strong>IBK 늘푸른하늘통장</strong><span>환경보호 실천에 동참하고&#33;</span><i>금리는 더 높게&#33; 수수료 면제는 더 많이&#33;</i></a></li>
                         </ul>
                         <ul class="list_dot">
+                            <li><a href="" class="on_show"></a></li>
                             <li><a href=""></a></li>
                             <li><a href=""></a></li>
-                            <li><a href=""></a></li>
-                            <li class="list_dot_move"><a href=""></a></li>
+                            <li class="list_dot_move"><a href="" class="on_stop"></a></li>
                         </ul>
                         <a href="" class="btn_arrow_prev"></a>
                         <a href="" class="btn_arrow_next"></a>
                     </div>
                     <div class="mobile_wrap">
                         <div class="b_commercial_small clear">
-                            <div class="bottom_commercial_small Aa">
+                            <div class="bottom_commercial small_A">
                                 <ul class="bottom_small_list_A">
                                     <span>알림</span>
+                                    <li><a href=""><img src="image/bn_thumb_notify01.gif" alt=""></a></li>
                                     <li><a href=""><img src="image/bn_thumb_notify02.gif" alt=""></a></li>
-                                    <li><a href=""><img src="" alt=""></a></li>
-                                    <li><a href=""><img src="" alt=""></a></li>
+                                    <li><a href=""><img src="image/bn_thumb_notify03.gif" alt=""></a></li>
                                 </ul>
                                 <ul class="list_dot_s">
-                                    <li><a href=""></a></li>
+                                    <li><a href="" class="on_show"></a></li>
                                     <li><a href=""></a></li>
                                     <li><a href=""></a></li>
                                 </ul>
                             </div>
-                            <div class="bottom_commercial_small Bb">
+                            <div class="bottom_commercial small_B">
                                 <ul class="bottom_small_list_B">
                                     <span>이벤트</span>
-                                    <li><a href=""><img src="" alt=""></a></li>
+                                    <li><a href=""><img src="image/bn_thumb_event01.gif" alt=""></a></li>
                                     <li><a href=""><img src="image/bn_thumb_event02.gif" alt=""></a></li>
-                                    <li><a href=""><img src="" alt=""></a></li>
+                                    <li><a href=""><img src="image/bn_thumb_event03.gif" alt=""></a></li>
                                 </ul>
                                 <ul class="list_dot_s">
-                                    <li><a href=""></a></li>
+                                    <li><a href="" class="on_show"></a></li>
                                     <li><a href=""></a></li>
                                     <li><a href=""></a></li>
                                 </ul>
@@ -686,12 +686,17 @@
 const headAllMenuBtnOn = document.querySelector('.head_all_menu_Btn_on');
 const headAllMenuBtnOff = document.querySelector('.all_menu_tap_bar > a')
 const headAllMenuTap = document.querySelector('.head_all_menu_tap')
+const topComEl = document.querySelector('.top_list')
 const topComElems = document.querySelectorAll('.top_list > li')
+const topInner = document.querySelector('.top_inner')
 const topComPrv = document.querySelector('.top_inner > .btn_arrow_prev')
 const topComNxt = document.querySelector('.top_inner > .btn_arrow_next')
 let topComElemsLeng = topComElems.length;
 let curIndex = 0;
-const topComWidth = 1000;
+let topComWidth = topInner.clientWidth;
+console.log(topComWidth);
+
+
 const topComSpeed = 300;
 let windowWidth = window.innerWidth;
 let curSlide
@@ -728,9 +733,6 @@ function headAllMenuBtnOffAnime() {
 // silide ready
 slideReady();
 function slideReady() {
-    for (let i = 0; i < topComElemsLeng; i++) {
-        topComElems[i].style.transition = topComSpeed + 'ms';
-    }
     for (let i = 1; i < topComElemsLeng; i++) {
         topComElems[i].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
     }
@@ -740,32 +742,27 @@ topComNxt.addEventListener('click',function () {
     clearInterval(moveId);
     dotMove.classList.remove('on_stop')
     if (curIndex < topComElemsLeng -1){
+        topComElems[curIndex].style.transition = topComSpeed + 'ms';
+        topComElems[curIndex+1].style.transition = topComSpeed + 'ms';
         // 나가기
         topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
         // 들어오기
         topComElems[curIndex+1].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
         // 뒤로 보내기
         setTimeout(function () {
-            topComElems[curIndex-1].style.display = 'none';
+            topComElems[curIndex - 1].style.transition = '0ms';
             topComElems[curIndex-1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
         }, topComSpeed)
     }
     if (curIndex === topComElemsLeng - 1){ // 처음부터 시작
+        topComElems[topComElemsLeng-1].style.transition = topComSpeed + 'ms';
         topComElems[topComElemsLeng-1].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
         setTimeout(function () {
-            topComElems[topComElemsLeng - 1].style.display = 'none';
+            topComElems[topComElemsLeng - 1].style.transition = '0ms';
             topComElems[topComElemsLeng - 1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
-        }, topComSpeed) // 디스플레이 넌 만들고 뒤로 보내기
-        setTimeout(() => {
-            topComElems[topComElemsLeng - 1].style.display = 'block';
-        }, topComSpeed*2); // 디스플레이 넌 다시 블락 만들기
-        topComElems[0].style.display = 'block';
-        setTimeout(function () {
-            topComElems[0].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
-            for(var i=0; i< topComElemsLeng; i++){
-                topComElems[i].style.display = 'block'
-            }
-        },20)
+        }, topComSpeed) // 뒤로 보내기
+        topComElems[0].style.transition = topComSpeed + 'ms';
+        topComElems[0].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
         curIndex = -1;
     }
     for (let i = 0; i < topListDotElems.length; i++) {
@@ -780,25 +777,24 @@ topComPrv.addEventListener('click',() =>{
     dotMove.classList.remove('on_stop')
     if (curIndex === 0) {
         topComElems[curIndex].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
-        topComElems[topComElemsLeng - 1].style.display = 'none'
+        topComElems[topComElemsLeng - 1].style.transition = '0ms';
         topComElems[topComElemsLeng - 1].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
         setTimeout(() => {
-            topComElems[topComElemsLeng - 1].style.display = 'block'
-        }, 20);
-        setTimeout(() => {
+            topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+            topComElems[topComElemsLeng - 1].style.transition = topComSpeed + 'ms';
             topComElems[topComElemsLeng - 1].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
-        }, 40);
+        }, 20);
         curIndex = topComElemsLeng
     } else if (curIndex <= topComElemsLeng - 1) {
-        topComElems[curIndex-1].style.display = 'none';
-        topComElems[curIndex-1].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+        topComElems[curIndex].style.transition = '0ms';
+        topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
         setTimeout(() => {
-            topComElems[curIndex].style.display = 'block';
+            topComElems[curIndex].style.transition = topComSpeed + 'ms';
+            topComElems[curIndex].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
         }, 20);
-        setTimeout(() => {
-            topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+        
+            topComElems[curIndex+1].style.transition = topComSpeed + 'ms';
             topComElems[curIndex+1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
-        }, 40);
     }
     for (let i = 0; i < topListDotElems.length; i++) {
         topListDotElems[i].classList.remove('on_show')
@@ -882,7 +878,190 @@ function autoWork() {
 }
 // topcom slide end
 
+let bottomCom = document.querySelector('.bottom_commercial_big')
+const bottomComEl = document.querySelector('.bottom_big_list')
+const bottomComElems = document.querySelectorAll('.bottom_big_list > li')
+const bottomComPrv = document.querySelector('.bottom_commercial_big > .btn_arrow_prev')
+const bottomComNxt = document.querySelector('.bottom_commercial_big > .btn_arrow_next')
+let bottomComElemsLeng = bottomComElems.length;
+let bottomComWidth = bottomCom.clientWidth;
+const bottomComSpeed = 320;
+const bottomListDot = document.querySelector('.bottom_commercial_big >.list_dot')
+const bottomListDotElems = document.querySelectorAll('.bottom_commercial_big >.list_dot > li > a')
+const bottomDotMove = document.querySelector('.bottom_commercial_big > .list_dot > .list_dot_move > a')
+let bottomCurIndex = 0;
+var bottomMoveId;
+const firstCopy = bottomComEl.firstElementChild.cloneNode(true);
+const lastCopy = bottomComEl.lastElementChild.cloneNode(true);
+bottomComEl.appendChild(firstCopy);
+bottomComEl.insertBefore(lastCopy,bottomComEl.childNodes[0])
 
+// bottom slide start
+// ComNXT
+bottomSlideReady();
+function bottomSlideReady() {
+    bottomComEl.style.transform = 'translate3d(-' + (bottomComWidth) + 'px, 0px, 0px)';
+}
+
+bottomComNxt.addEventListener('click',(e)=>{
+    e.preventDefault();
+    bottomComEl.style.transition = bottomComSpeed + 'ms';
+    if (bottomCurIndex < bottomComElemsLeng - 1){
+        bottomComEl.style.transform = `translate3d(-${bottomComWidth*(bottomCurIndex+2)}px, 0px, 0px)`;
+    } else if (bottomCurIndex === bottomComElemsLeng -1) {
+        bottomComEl.style.transform = `translate3d(-${bottomComWidth*(bottomCurIndex + 2)}px, 0px, 0px)`;
+        setTimeout(() => {
+            bottomComEl.style.transition = '0ms';
+            bottomComEl.style.transform = `translate3d(-${(bottomComWidth)}px, 0px, 0px)`;
+        }, bottomComSpeed);
+        bottomCurIndex = -1;
+    }
+    bottomCurSlide = bottomComElems[++bottomCurIndex];
+    for (let i = 0; i < bottomListDotElems.length; i++) {
+        bottomListDotElems[i].classList.remove('on_show')
+    }
+    bottomListDotElems[bottomCurIndex].classList.add('on_show')
+})
+// ComPRV
+bottomComPrv.addEventListener('click',(e)=>{
+    e.preventDefault();
+    bottomComEl.style.transition = bottomComSpeed + 'ms';
+    if (bottomCurIndex === 0){
+        bottomCurIndex = bottomComElemsLeng;
+        bottomComEl.style.transform = 'translate3d(0px, 0px, 0px)';
+        setTimeout(() => {
+            bottomComEl.style.transition = '0ms';
+            bottomComEl.style.transform = `translate3d(-${bottomComWidth*(bottomCurIndex + 1)}px, 0px, 0px)`;
+        }, bottomComSpeed);
+    } else if (bottomCurIndex <= bottomComElemsLeng-1){
+        bottomComEl.style.transform = `translate3d(-${bottomComWidth * (bottomCurIndex)}px, 0px, 0px)`;
+    }
+    bottomCurSlide = bottomComElems[--bottomCurIndex];
+    for (let i = 0; i < bottomListDotElems.length; i++) {
+        bottomListDotElems[i].classList.remove('on_show')
+    }
+    bottomListDotElems[bottomCurIndex].classList.add('on_show')
+})
+
+// bottom 페이지네이션
+bottomListDot.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (e.target.tagName !== 'A') return;
+    if (e.target === bottomDotMove) {
+        if (bottomDotMove.className) {
+            e.target.classList.remove('on_stop')
+            clearInterval(bottomMoveId);
+        } else {
+            e.target.classList.add('on_stop')
+            bottomAutoWork();
+        }
+        return
+    }
+    if (e.target.className) return;
+    if (!e.target.className) {
+        for (let i = 0; i < bottomListDotElems.length; i++) {
+            bottomListDotElems[i].classList.remove('on_show')
+            bottomListDotElems[i].setAttribute('index', i)
+        }
+        e.target.classList.add('on_show')
+    }
+    let targetIndex = e.target.getAttribute('index');
+    bottomComEl.style.transform = `translate3d(-${bottomComWidth * (Number(targetIndex)+1)}px, 0px, 0px)`;
+    bottomCurIndex = Number(targetIndex);
+    bottomCurSlide = bottomComElems[bottomCurIndex];
+})
+// bottomAUTo
+
+bottomAutoWork();
+function bottomAutoWork() {
+    bottomMoveId = setInterval(() => {
+        bottomComEl.style.transition = bottomComSpeed + 'ms';
+        if (bottomCurIndex < bottomComElemsLeng - 1) {
+            bottomComEl.style.transform = `translate3d(-${bottomComWidth * (bottomCurIndex + 2)}px, 0px, 0px)`;
+        } else if (bottomCurIndex === bottomComElemsLeng - 1) {
+            bottomComEl.style.transform = `translate3d(-${bottomComWidth * (bottomCurIndex + 2)}px, 0px, 0px)`;
+            setTimeout(() => {
+                bottomComEl.style.transition = '0ms';
+                bottomComEl.style.transform = `translate3d(-${(bottomComWidth)}px, 0px, 0px)`;
+            }, bottomComSpeed);
+            bottomCurIndex = -1;
+        }
+        bottomCurSlide = bottomComElems[++bottomCurIndex];
+        for (let i = 0; i < bottomListDotElems.length; i++) {
+            bottomListDotElems[i].classList.remove('on_show')
+        }
+        bottomListDotElems[bottomCurIndex].classList.add('on_show')
+    }, 1500);
+}
+
+// bottomcom slide end
+// bottom Smalls
+// small A start
+const smListA = document.querySelector('.bottom_small_list_A');
+const smListAElems = document.querySelectorAll('.bottom_small_list_A > li');
+const smListADot = document.querySelector('.small_A > .list_dot_s');
+const smListADots = document.querySelectorAll('.small_A > .list_dot_s > li > a')
+const smListWidth = smListA.clientWidth;
+const smListSpeed = 300;
+console.log(smListWidth);
+
+
+smListReadyA();
+function smListReadyA() {
+    for(let i =1;  i < smListAElems.length; i++) {
+        smListAElems[i].style.transform = `translate3d(${smListWidth}px, 0px, 0px)`;
+    }
+};
+smListADot.addEventListener('click',(e)=>{
+    e.preventDefault();
+    if (e.target.tagName != 'A') return;
+    for (let i = 0; i < smListADots.length; i++) {
+        smListADots[i].classList.remove('on_show');
+        smListADots[i].setAttribute('index',i);
+        smListAElems[i].style.transition = smListSpeed + 'ms';
+    }
+    e.target.classList.add('on_show');
+    let targetIndex = e.target.getAttribute('index')
+    smListAElems[Number(targetIndex)].style.transform = `translate3d(0px, 0px, 0px)`;
+    for (let i = Number(targetIndex)+1; i < smListAElems.length; i++) {
+        smListAElems[i].style.transform = `translate3d(${smListWidth}px, 0px, 0px)`;
+    }
+    for (let i = Number(targetIndex)-1; 0 <= i; i--){
+        smListAElems[i].style.transform = `translate3d(-${smListWidth}px, 0px, 0px)`;
+    }
+})
+// small A end
+// small B start
+const smListB = document.querySelector('.bottom_small_list_B');
+const smListBElems = document.querySelectorAll('.bottom_small_list_B > li');
+const smListBDot = document.querySelector('.small_B > .list_dot_s');
+const smListBDots = document.querySelectorAll('.small_B > .list_dot_s > li > a')
+
+smListReadyB();
+function smListReadyB() {
+    for(let i =1;  i < smListBElems.length; i++) {
+        smListBElems[i].style.transform = `translate3d(${smListWidth}px, 0px, 0px)`;
+    }
+};
+smListBDot.addEventListener('click',(e)=>{
+    e.preventDefault();
+    if (e.target.tagName != 'A') return;
+    for (let i = 0; i < smListBDots.length; i++) {
+        smListBDots[i].classList.remove('on_show');
+        smListBDots[i].setAttribute('index',i)
+        smListBElems[i].style.transition = smListSpeed + 'ms';
+    }
+    e.target.classList.add('on_show');
+    let targetIndex = e.target.getAttribute('index')
+    smListBElems[Number(targetIndex)].style.transform = `translate3d(0px, 0px, 0px)`;
+    for (let i = Number(targetIndex)+1; i < smListBElems.length; i++) {
+        smListBElems[i].style.transform = `translate3d(${smListWidth}px, 0px, 0px)`;
+    }
+    for (let i = Number(targetIndex)-1; 0 <= i; i--){
+        smListBElems[i].style.transform = `translate3d(-${smListWidth}px, 0px, 0px)`;
+    }
+})
+// small B end
 
 
 function headAllMenuTapOff() {
