@@ -102,25 +102,26 @@ main {margin: 0 auto; position: relative;}
 .top_inner > .btn_arrow_prev,.btn_arrow_next  {top:192px;}
 
 .main_top > .top_commercial > .top_list {height: 446px;position: relative;overflow: hidden;}
-.main_top > .top_commercial > .top_list > li {position: absolute; height: 100%; width: 1000px; left: 50%; transform: translate(-50%);}
+.main_top > .top_commercial > .top_list > li {z-index: -100; position: absolute; height: 100%; width: 1000px; left: 50%; transform: translate(-50%);}
+.main_top > .top_commercial > .top_list > li > a > img {z-index: 2000;}
 
 .main_top > .top_commercial > .top_list > .top_commercial_first {top:0; }
-.top_commercial_first > .media {position: absolute; left: 8.3%; top: 260px; height: 19px; width: 195px;}
-.top_commercial_first > .detail {position: absolute; left: 31%; top: 260px; height: 19px; width: 195px;}
-.top_commercial_first > .lee {padding-left: 500px; max-height: 100%; z-index: -100;}
-.top_commercial_first > .also {position: absolute; top: 110px; left: 6.7%;}
+.top_commercial_first > .media {position: absolute; left: 8.3%; top: 67.885117%; height: 19px; width: 195px;}
+.top_commercial_first > .detail {position: absolute; left: 31%; top: 67.885117%; height: 19px; width: 195px;}
+.top_commercial_first > .lee {position: absolute; left: 50%; height: 100%; z-index: -100;}
+.top_commercial_first > .also {position: absolute; top: 30%; left: 6.7%;}
 
 .main_top > .top_commercial > .top_list > .top_commercial_second {top: 0;}
-.top_commercial_second > .media {position: absolute; left: 8.3%; top: 290px; height: 19px; width: 195px;}
-.top_commercial_second > .detail {position: absolute; left: 31%; top: 290px; height: 19px; width: 195px;}
-.top_commercial_second > .world {padding-left: 430px; max-height: 110%; z-index: -100;}
-.top_commercial_second > .txt {position: absolute; top: 120px; left: 6.7%;}
+.top_commercial_second > .media {position: absolute; left: 8.3%; top: 73.791349%; height: 19px; width: 195px;}
+.top_commercial_second > .detail {position: absolute; left: 31%; top: 73.791349%; height: 19px; width: 195px;}
+.top_commercial_second > .world {position: absolute; left: 43%; height: 110%; z-index: -100;}
+.top_commercial_second > .txt {position: absolute; top: 31.331593%; left: 6.7%;}
 .top_commercial_second > .txt > img {display: block;}
 
 .main_top > .top_commercial > .top_list > .top_commercial_third {top: 0;}
-.top_commercial_third > .detail {position: absolute; left: 8.3%; top: 310px; height: 19px; width: 195px;}
-.top_commercial_third > .cube {padding-left: 360px; max-height: 110%; z-index: -100;}
-.top_commercial_third > .txt {position: absolute; top: 120px; left: 6.7%;}
+.top_commercial_third > .detail {position: absolute; left: 8.3%; top: 73.791349%; height: 19px; width: 195px;}
+.top_commercial_third > .cube {position: absolute; left: 36%; max-height: 110%; z-index: -100;}
+.top_commercial_third > .txt {position: absolute; top: 28%; left: 6.7%;}
 .top_commercial_third > .txt > img {display: block; margin-bottom: 20px;}
 
 
@@ -140,7 +141,7 @@ main {margin: 0 auto; position: relative;}
 
 
 .bottom_commercial_big > .bottom_big_list > li {float: left; width: 20%;}
-.bottom_commercial_big > .bottom_big_list {width: max-content;}
+.bottom_commercial_big > .bottom_big_list {width: 500%;}
 .bottom_commercial_big > .bottom_big_list > li > a > * {display: block;}
 .bottom_commercial_big > .bottom_big_list > li > a {width: 750px; height: 222px; display: block;}
 .bottom_big_list strong {padding-left: 62px; padding-top: 57px; font-size: 30px;}
@@ -233,7 +234,7 @@ footer {margin-top: 76px; border-top:1px solid #d6e0df; height: 100px; padding-t
 	.main_top > .top_commercial > .top_list > li {width: 95%;}
 
 .main_top > .top_commercial > .top_list {height: 446px;position: relative;}
-.main_top > .top_commercial > .top_list > li {position: absolute; height: 100%; width: 95%; }
+.main_top > .top_commercial > .top_list > li {position: absolute; height: 55%; width: 100%; top: 0; bottom: 0; margin: auto;}
 
 .top_inner {width: 100%;height: 383px; margin-top: -446px;}
 
@@ -301,6 +302,7 @@ footer {margin-top: 126px; height: 100%;}
 /* if .mobile_all_menu = display */
 /* html {overflow: hidden;} */
 .header_container {height: 49px; width: 100%; position: relative; border-bottom: 4px solid #196ec8;}
+.head_all_menu_Btn_on{display: none;}
 h1 > a > img{margin: 0 auto; position: absolute; top: 10px; left: 0; right: 0;}
 
 .mobile_all_menu {display: block;}
@@ -312,6 +314,12 @@ h1 > a > img{margin: 0 auto; position: absolute; top: 10px; left: 0; right: 0;}
 	0% {transform: translateX(100%);}
 	100% {transform: translateX(0);}
 }
+.top_list > li .word {height: 30%;}
+.top_list > li .txt {height: 100%; width: 100%;}
+.top_list > li > .txt .word {height: 18%; max-width: 50%;}
+.top_commercial_first > .detail {left: 8.3%; top: 300px;}
+.top_commercial_second > .detail {left: 9%; top: 320px;}
+
 .cover_map { display: none; position: fixed; left: 0; width: 100%; height: 100%; z-index: 2100; background-color: black; opacity: 0.8;}
 
 .mb_menu_top {height: 100px; background: url('../image/bg_ctg_util.png') repeat;}
@@ -347,16 +355,14 @@ h1 > a > img{margin: 0 auto; position: absolute; top: 10px; left: 0; right: 0;}
 	100% {transform: translateX(0);}
 }
 }
-	/* mb_common end */
-	/* 751이상 1000이하 start */
-	@media screen and (min-width:751px) and (max-width: 1000px){
-	.header_container {overflow: hidden;}
-	.main_top {width: 80%; min-width: 690px; overflow: hidden;}
-	.main_bottom {width: 80%; min-width: 690px; height: auto;}
-	.main_top > .top_commercial > .top_list > li {width: 80%; min-width: 690px;}
-
+/* mb_common end */
+/* 751이상 1000이하 start */
+@media screen and (min-width:751px) and (max-width: 1000px){
+.header_container {overflow: hidden;}
+.main_top {width: 80%; min-width: 690px; overflow: hidden;}
+.main_bottom {width: 80%; min-width: 690px; height: auto;}
 .main_top > .top_commercial > .top_list {height: 446px;position: relative;}
-.main_top > .top_commercial > .top_list > li {position: absolute; height: 100%; width: 80%; min-width: 690px;}
+.main_top > .top_commercial > .top_list > li {position: absolute; height: 80%; width: 100%;}
 
 .top_inner {width: 100%;height: 383px; margin-top: -446px;}
 

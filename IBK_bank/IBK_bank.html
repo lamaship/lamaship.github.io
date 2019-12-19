@@ -425,23 +425,23 @@
                         <a href="" class="media"><img src="image/thumb_visual03-01_btn.png" alt=""></a>
                         <a href="" class="detail"><img src="image/thumb_visual03-02_btn.png" alt=""></a>
                         <img src="image/thumb_visual03_img_01_2.png" alt="" class="lee">
-                        <img src="image/thumb_visual03_text_02_2.png" alt="" class="also">
+                        <img src="image/thumb_visual03_text_02_2.png" alt="" class="also word">
                     </li>
                     <li class="top_commercial_second">
                         <a href="" class="media"><img src="image/thumb_visual03_btn.png" alt=""></a>
                         <a href="" class="detail"><img src="image/thumb_visual01_btn.png" alt=""></a>
                         <img src="image/thumb_visual01_img_01.png" alt="" class="world">
                         <div class="txt">
-                            <img src="image/thumb_visual01_text_01.png" alt="">
-                            <img src="image/thumb_visual01_text_02.png" alt="">
+                            <img src="image/thumb_visual01_text_01.png" alt="" class="word">
+                            <img src="image/thumb_visual01_text_02.png" alt="" class="word">
                         </div>
                     </li>
                     <li class="top_commercial_third">
                         <a href="" class="detail"><img src="image/thumb_visual02_btn.png" alt=""></a>
                         <img src="image/thumb_visual02_img_01.png" alt="" class="cube">
                         <div class="txt">
-                            <img src="image/thumb_visual02_text_01.png" alt="">
-                            <img src="image/thumb_visual02_text_02.png" alt="">
+                            <img src="image/thumb_visual02_text_01.png" alt="" class="word">
+                            <img src="image/thumb_visual02_text_02.png" alt="" class="word">
                         </div>
                     </li>
                 </ul>
@@ -742,22 +742,22 @@ topComNxt.addEventListener('click',function () {
     clearInterval(moveId);
     dotMove.classList.remove('on_stop')
     if (curIndex < topComElemsLeng -1){
-        topComElems[curIndex].style.transition = topComSpeed + 'ms';
-        topComElems[curIndex+1].style.transition = topComSpeed + 'ms';
         // 나가기
+        topComElems[curIndex].style.transition = topComSpeed + 'ms';
         topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
         // 들어오기
+        topComElems[curIndex+1].style.transition = topComSpeed + 'ms';
         topComElems[curIndex+1].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
         // 뒤로 보내기
         setTimeout(function () {
-            topComElems[curIndex - 1].style.transition = '0ms';
+            topComElems[curIndex-1].style.transition = '0ms';
             topComElems[curIndex-1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
         }, topComSpeed)
     }
     if (curIndex === topComElemsLeng - 1){ // 처음부터 시작
         topComElems[topComElemsLeng-1].style.transition = topComSpeed + 'ms';
         topComElems[topComElemsLeng-1].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
-        setTimeout(function () {
+        setTimeout(()=>{
             topComElems[topComElemsLeng - 1].style.transition = '0ms';
             topComElems[topComElemsLeng - 1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
         }, topComSpeed) // 뒤로 보내기
@@ -776,25 +776,24 @@ topComPrv.addEventListener('click',() =>{
     clearInterval(moveId);
     dotMove.classList.remove('on_stop')
     if (curIndex === 0) {
+        topComElems[curIndex].style.transition = topComSpeed + 'ms';
         topComElems[curIndex].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
         topComElems[topComElemsLeng - 1].style.transition = '0ms';
         topComElems[topComElemsLeng - 1].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
         setTimeout(() => {
-            topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
             topComElems[topComElemsLeng - 1].style.transition = topComSpeed + 'ms';
             topComElems[topComElemsLeng - 1].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
         }, 20);
         curIndex = topComElemsLeng
     } else if (curIndex <= topComElemsLeng - 1) {
-        topComElems[curIndex].style.transition = '0ms';
-        topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+        topComElems[curIndex].style.transition = topComSpeed + 'ms';
+        topComElems[curIndex].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
+        topComElems[curIndex-1].style.transition = '0ms';
+        topComElems[curIndex-1].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
         setTimeout(() => {
             topComElems[curIndex].style.transition = topComSpeed + 'ms';
-            topComElems[curIndex].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
+            topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
         }, 20);
-        
-            topComElems[curIndex+1].style.transition = topComSpeed + 'ms';
-            topComElems[curIndex+1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
     }
     for (let i = 0; i < topListDotElems.length; i++) {
         topListDotElems[i].classList.remove('on_show')
@@ -831,12 +830,13 @@ topListDot.addEventListener('click',(e) =>{
     if (targetIndex) {
         for (let i = targetIndex; 0 <= i; i--) {
             topComElems[i].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
-            topComElems[i].style.display = 'block'
+            topComElems[i].style.transition = topComSpeed + 'ms';
         }
         for (let i = targetIndex; i < topComElems.length; i++){
             topComElems[i].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
-            topComElems[i].style.display = 'block'
+            topComElems[i].style.transition = topComSpeed + 'ms';
             topComElems[targetIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+            topComElems[targetIndex].style.transition = topComSpeed + 'ms';
         }
     }
     curIndex = Number(targetIndex);
@@ -846,34 +846,58 @@ topListDot.addEventListener('click',(e) =>{
 autoWork();
 function autoWork() {
     moveId = setInterval(() => {
-        if (curIndex < topComElemsLeng-1) {
-            for (let i = curIndex; 0 <= i; i--) {
-                topComElems[i].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
-                topComElems[i].style.display = 'block'
-            }
-            for (let i = curIndex; i < topComElems.length; i++) {
-                topComElems[i].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
-                topComElems[i].style.display = 'block'
-                topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
-            }
-            topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
-            for (let i = 0; i < topListDotElems.length; i++) {
-                topListDotElems[i].classList.remove('on_show')
-            }
-            topListDotElems[curIndex].classList.add('on_show')
-            curIndex++;
-        } else if (curIndex == topComElemsLeng-1) {
-            for (let i = 1; i < topComElems.length ; i++){
-                topComElems[i].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
-            }
-            topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
-            for (let i = 0; i < topListDotElems.length; i++) {
-                topListDotElems[i].classList.remove('on_show')
-            }
-            topListDotElems[curIndex].classList.add('on_show')
-            curIndex = 0
+        if (curIndex < topComElemsLeng - 1) {
+            topComElems[curIndex].style.transition = topComSpeed + 'ms';
+            topComElems[curIndex + 1].style.transition = topComSpeed + 'ms';
+            // 나가기
+            topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+            // 들어오기
+            topComElems[curIndex + 1].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+            // 뒤로 보내기
+            setTimeout(function () {
+                topComElems[curIndex - 1].style.transition = '0ms';
+                topComElems[curIndex - 1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
+            }, topComSpeed)
         }
-        curSlide = topComElems[curIndex];
+        if (curIndex === topComElemsLeng - 1) { // 처음부터 시작
+            topComElems[topComElemsLeng - 1].style.transition = topComSpeed + 'ms';
+            topComElems[topComElemsLeng - 1].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+            setTimeout(() => {
+                topComElems[topComElemsLeng - 1].style.transition = '0ms';
+                topComElems[topComElemsLeng - 1].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
+            }, topComSpeed) // 뒤로 보내기
+            topComElems[0].style.transition = topComSpeed + 'ms';
+            topComElems[0].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+            curIndex = -1;
+        }
+        // if (curIndex < topComElemsLeng-1) {
+        //     for (let i = curIndex; 0 <= i; i--) {
+        //         topComElems[i].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+        //         topComElems[i].style.display = 'block'
+        //     }
+        //     for (let i = curIndex; i < topComElems.length; i++) {
+        //         topComElems[i].style.transform = 'translate3d(' + (windowWidth / 2) + 'px, 0px, 0px)';
+        //         topComElems[i].style.display = 'block'
+        //         topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+        //     }
+        //     topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+        //     for (let i = 0; i < topListDotElems.length; i++) {
+        //         topListDotElems[i].classList.remove('on_show')
+        //     }
+        //     topListDotElems[curIndex].classList.add('on_show')
+        //     curIndex++;
+        // } else if (curIndex == topComElemsLeng-1) {
+        //     for (let i = 1; i < topComElems.length ; i++){
+        //         topComElems[i].style.transform = 'translate3d(-' + (topComWidth + (windowWidth / 2)) + 'px, 0px, 0px)';
+        //     }
+        //     topComElems[curIndex].style.transform = 'translate3d(-' + (topComWidth / 2) + 'px, 0px, 0px)';
+        //     curIndex = 0
+        // }
+        for (let i = 0; i < topListDotElems.length; i++) {
+            topListDotElems[i].classList.remove('on_show')
+        }
+        topListDotElems[curIndex+1].classList.add('on_show')
+        curSlide = topComElems[curIndex++];
     }, 1500);
 }
 // topcom slide end
@@ -905,6 +929,7 @@ function bottomSlideReady() {
 
 bottomComNxt.addEventListener('click',(e)=>{
     e.preventDefault();
+    clearInterval(bottomMoveId);
     bottomComEl.style.transition = bottomComSpeed + 'ms';
     if (bottomCurIndex < bottomComElemsLeng - 1){
         bottomComEl.style.transform = `translate3d(-${bottomComWidth*(bottomCurIndex+2)}px, 0px, 0px)`;
@@ -925,6 +950,7 @@ bottomComNxt.addEventListener('click',(e)=>{
 // ComPRV
 bottomComPrv.addEventListener('click',(e)=>{
     e.preventDefault();
+    clearInterval(bottomMoveId);
     bottomComEl.style.transition = bottomComSpeed + 'ms';
     if (bottomCurIndex === 0){
         bottomCurIndex = bottomComElemsLeng;
@@ -964,9 +990,11 @@ bottomListDot.addEventListener('click', (e) => {
             bottomListDotElems[i].setAttribute('index', i)
         }
         e.target.classList.add('on_show')
+        clearInterval(bottomMoveId);
     }
     let targetIndex = e.target.getAttribute('index');
     bottomComEl.style.transform = `translate3d(-${bottomComWidth * (Number(targetIndex)+1)}px, 0px, 0px)`;
+    bottomComEl.style.transition = topComSpeed + 'ms';
     bottomCurIndex = Number(targetIndex);
     bottomCurSlide = bottomComElems[bottomCurIndex];
 })

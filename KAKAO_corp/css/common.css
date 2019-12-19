@@ -1,0 +1,10 @@
+.hidden {font-size: 0; height: 0; width: 0; opacity: 0;}
+
+/* header */
+header {height: 60px; position: relative;}
+h1 {height: 58px; position: absolute;}
+.category {position: absolute; right: 0; left: 0; width: 500px; margin: 0 auto;}
+.category > li {float: left;}
+.category > li > .side {display: none;}
+.category > li > .side.on {display: block;}
+header > .lang {position: absolute;}
